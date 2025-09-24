@@ -11,10 +11,10 @@ export const Header = () => {
           </Button>
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">शि</span>
+              <span className="text-white font-bold text-sm">E</span>
             </div>
             <h1 className="text-xl font-bold text-foreground">
-              शिक्षा <span className="text-primary">AI</span>
+              Education <span className="text-primary">AI</span>
             </h1>
           </div>
         </div>
