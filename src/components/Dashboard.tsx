@@ -50,7 +50,7 @@ export const Dashboard = () => {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-foreground mb-2">
-            Welcome back, Priya! 👋
+            Welcome back, Somu! 👋
           </h1>
           <p className="text-muted-foreground">
             Ready to continue your learning journey? Let's make today count!
