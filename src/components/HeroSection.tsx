@@ -52,6 +52,25 @@ export const HeroSection = () => {
               </Button>
             </div>
 
+            {/* Additional Learning Options */}
+            <div className="flex flex-wrap gap-3 pt-2">
+              <Button variant="outline" className="text-sm">
+                View Lessons
+              </Button>
+              <Button variant="outline" className="text-sm">
+                Take Quiz
+              </Button>
+              <Button variant="outline" className="text-sm">
+                Track Progress
+              </Button>
+              <Button variant="outline" className="text-sm">
+                Get Help
+              </Button>
+              <Button variant="outline" className="text-sm">
+                Download Content
+              </Button>
+            </div>
+
             {/* Key features */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
               <div className="flex items-center gap-2">
