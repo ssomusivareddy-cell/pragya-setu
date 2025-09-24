@@ -2,6 +2,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Clock, Star, PlayCircle } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 interface SubjectCardProps {
   title: string;
@@ -26,6 +27,22 @@ export const SubjectCard = ({
   estimatedTime,
   difficulty
 }: SubjectCardProps) => {
+  const { toast } = useToast();
+
+  const handleContinueLearning = () => {
+    toast({
+      title: `📚 Continue ${title}`,
+      description: `Resume your ${title} journey! You're ${progress}% complete with ${completedLessons} of ${totalLessons} lessons finished. Next lesson: Interactive exercises and practice problems.`,
+    });
+  };
+
+  const handleReview = () => {
+    toast({
+      title: `🔍 Review ${title}`,
+      description: `Review completed lessons in ${title}. Access your notes, practice questions, and key concepts from the ${completedLessons} lessons you've already mastered.`,
+    });
+  };
+
   const getDifficultyColor = (level: string) => {
     switch (level) {
       case "Easy": return "text-learning-green";
@@ -74,11 +91,11 @@ export const SubjectCard = ({
             <Progress value={progress} className="h-2" />
             
             <div className="flex gap-2 pt-2">
-              <Button variant="learning" size="sm" className="flex-1">
+              <Button variant="learning" size="sm" className="flex-1" onClick={handleContinueLearning}>
                 <PlayCircle className="h-4 w-4" />
                 Continue Learning
               </Button>
-              <Button variant="outline" size="sm">
+              <Button variant="outline" size="sm" onClick={handleReview}>
                 Review
               </Button>
             </div>

@@ -2,8 +2,25 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { PlayCircle, Users, Globe, Zap } from "lucide-react";
 import heroImage from "@/assets/hero-learning.jpg";
+import { useToast } from "@/hooks/use-toast";
 
 export const HeroSection = () => {
+  const { toast } = useToast();
+
+  const handleStartLearning = () => {
+    toast({
+      title: "🎯 Start Learning",
+      description: "Welcome to your personalized learning journey! Choose from Math, Science, or English to begin with adaptive content that matches your pace and learning style.",
+    });
+  };
+
+  const handleJoinStudyGroup = () => {
+    toast({
+      title: "👥 Join Study Group",
+      description: "Connect with classmates for collaborative learning! Share notes, discuss topics, and learn together even when offline. Groups are organized by subject and grade level.",
+    });
+  };
+
   return (
     <section className="relative py-16 overflow-hidden">
       {/* Background with image */}
@@ -42,11 +59,11 @@ export const HeroSection = () => {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button variant="hero" size="lg" className="text-lg px-8">
+              <Button variant="hero" size="lg" className="text-lg px-8" onClick={handleStartLearning}>
                 <PlayCircle className="h-5 w-5" />
                 Start Learning
               </Button>
-              <Button variant="learning" size="lg" className="text-lg px-8">
+              <Button variant="learning" size="lg" className="text-lg px-8" onClick={handleJoinStudyGroup}>
                 <Users className="h-5 w-5" />
                 Join Study Group
               </Button>
