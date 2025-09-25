@@ -6,12 +6,13 @@ import { Calendar, Trophy, Target, Users, Mic, BookOpen } from "lucide-react";
 import mathIcon from "@/assets/math-icon.jpg";
 import scienceIcon from "@/assets/science-icon.jpg";
 import englishIcon from "@/assets/english-icon.jpg";
+import { useToast } from "@/hooks/use-toast";
 
 export const Dashboard = () => {
+  const { toast } = useToast();
   const subjects = [
     {
       title: "Mathematics",
-      titleHindi: "गणित",
       description: "Learn algebra, geometry, and problem-solving skills adapted to your pace",
       progress: 68,
       icon: mathIcon,
@@ -22,7 +23,6 @@ export const Dashboard = () => {
     },
     {
       title: "Science",
-      titleHindi: "विज्ञान",
       description: "Explore physics, chemistry, and biology through interactive experiments",
       progress: 45,
       icon: scienceIcon,
@@ -33,7 +33,6 @@ export const Dashboard = () => {
     },
     {
       title: "English",
-      titleHindi: "अंग्रेजी",
       description: "Improve reading, writing, and communication skills with voice practice",
       progress: 72,
       icon: englishIcon,
@@ -56,7 +55,7 @@ export const Dashboard = () => {
             Ready to continue your learning journey? Let's make today count!
           </p>
         </div>
-        <Button variant="hero" className="hidden md:flex">
+        <Button variant="hero" className="hidden md:flex" onClick={() => toast({ title: "🎤 Voice Assistant", description: "AI voice assistant activated! Ask questions, get explanations, practice pronunciation, and learn interactively in your preferred language." })}>
           <Mic className="h-4 w-4" />
           Voice Assistant
         </Button>
@@ -113,25 +112,25 @@ export const Dashboard = () => {
           <Badge variant="secondary" className="ml-auto">3 subjects</Badge>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-          {subjects.map((subject, index) => (
-            <SubjectCard key={index} {...subject} />
-          ))}
+        {subjects.map((subject, index) => (
+          <SubjectCard key={index} {...subject} />
+        ))}
         </div>
       </Card>
 
       {/* Quick Actions */}
       <div className="flex flex-wrap gap-3">
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" onClick={() => toast({ title: "🎤 Practice Speaking", description: "AI voice coach activated! Practice pronunciation, speaking exercises, and get real-time feedback on your communication skills." })}>
           <Mic className="h-4 w-4" />
           Practice Speaking
         </Button>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" onClick={() => toast({ title: "📚 Study with Friends", description: "Join collaborative study sessions! Connect with 8 friends in your study group for group discussions, shared notes, and peer learning." })}>
           📚 Study with Friends
         </Button>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" onClick={() => toast({ title: "🏆 View Achievements", description: "See your learning milestones! 12 badges earned, 7-day streak maintained, and 62% overall progress across all subjects." })}>
           🏆 View Achievements
         </Button>
-        <Button variant="outline" size="sm">
+        <Button variant="outline" size="sm" onClick={() => toast({ title: "📊 Parent Report", description: "Weekly progress report ready! Share your learning achievements, time spent studying, and areas of improvement with parents and teachers." })}>
           📊 Parent Report
         </Button>
       </div>

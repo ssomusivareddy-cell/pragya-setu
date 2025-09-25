@@ -19,9 +19,18 @@ export const HeroSection = () => {
   };
 
   const handleJoinStudyGroup = () => {
+    const studyGroups = [
+      { name: "Math Masters Class 10", members: 45, subject: "Mathematics", level: "Grade 10" },
+      { name: "Science Explorers", members: 38, subject: "Science", level: "Grade 9-10" },
+      { name: "English Writers Club", members: 52, subject: "English", level: "All Grades" },
+      { name: "Physics Problem Solvers", members: 29, subject: "Physics", level: "Grade 11-12" }
+    ];
+
+    const randomGroup = studyGroups[Math.floor(Math.random() * studyGroups.length)];
+
     toast({
       title: "👥 Join Study Group",
-      description: "Connect with classmates for collaborative learning! Share notes, discuss topics, and learn together even when offline. Groups are organized by subject and grade level.",
+      description: `Join "${randomGroup.name}" with ${randomGroup.members} active students! Collaborate on ${randomGroup.subject} topics, share notes, discuss problems, and learn together even offline.`,
     });
   };
 
@@ -40,9 +49,32 @@ export const HeroSection = () => {
   };
 
   const handleDownloadContent = () => {
+    const downloadContent = {
+      videos: ["Introduction to Algebra", "Basic Geometry", "Science Experiments", "English Grammar"],
+      worksheets: ["Math Practice Problems", "Science Lab Reports", "Essay Writing Templates"],
+      audioBooks: ["Story Collections", "Poetry Recitations", "Science Narrations"],
+      offlineGames: ["Math Puzzle Games", "Word Building Games", "Science Quiz Games"]
+    };
+
     toast({
-      title: "📱 Download Content",
-      description: "Download lessons for offline study! Access video lessons, practice exercises, and study materials even without internet connection. Perfect for remote learning.",
+      title: "📱 Download Learning Content",
+      description: `Access 50+ video lessons, 200+ worksheets, audio books, and offline games. Download includes: ${downloadContent.videos.slice(0,2).join(', ')} and more. Perfect for offline learning!`,
+    });
+  };
+
+  const handleFeatureClick = (feature: string) => {
+    const featureInfo = {
+      "Adaptive Learning Path": "🧠 AI analyzes your learning patterns, strengths, and areas for improvement to create a personalized curriculum. The system adjusts difficulty, suggests review topics, and recommends next lessons based on your progress and learning style.",
+      "Peer Learning Network": "👥 Connect with classmates and students from other schools. Join subject-specific groups, participate in discussions, share notes, ask questions, and collaborate on projects. Build a supportive learning community.",
+      "Offline First Design": "📱 Full functionality without internet! Download lessons, complete exercises, take quizzes, and track progress offline. All data syncs automatically when connection is available. Perfect for areas with limited connectivity.",
+      "Works Offline": "🌐 Complete learning experience without internet. Access downloaded videos, interactive exercises, quizzes, and study materials. Progress is saved locally and syncs when you're back online.",
+      "AI Adaptive": "⚡ Smart technology that learns with you! Adjusts lesson difficulty, provides personalized hints, identifies knowledge gaps, and creates custom practice problems based on your performance and learning speed.",
+      "Multilingual": "🗣️ Learn in your preferred language! Content available in English, Telugu, Tamil, Malayalam, and other regional languages. Voice assistance and explanations in your native language for better understanding."
+    };
+
+    toast({
+      title: feature,
+      description: featureInfo[feature] || "Learn more about this amazing feature!",
     });
   };
 
@@ -115,19 +147,19 @@ export const HeroSection = () => {
 
             {/* Key features */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleFeatureClick("Works Offline")}>
                 <div className="w-8 h-8 bg-gradient-success rounded-lg flex items-center justify-center">
                   <Globe className="h-4 w-4 text-white" />
                 </div>
                 <span className="text-sm font-medium">Works Offline</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleFeatureClick("AI Adaptive")}>
                 <div className="w-8 h-8 bg-gradient-secondary rounded-lg flex items-center justify-center">
                   <Zap className="h-4 w-4 text-white" />
                 </div>
                 <span className="text-sm font-medium">AI Adaptive</span>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleFeatureClick("Multilingual")}>
                 <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
                   <span className="text-white font-bold text-xs">E</span>
                 </div>
@@ -138,7 +170,7 @@ export const HeroSection = () => {
 
           {/* Right content - Feature cards */}
           <div className="space-y-4">
-            <Card className="p-6 shadow-float bg-card/80 backdrop-blur-sm">
+            <Card className="p-6 shadow-float bg-card/80 backdrop-blur-sm cursor-pointer" onClick={() => handleFeatureClick("Adaptive Learning Path")}>
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-gradient-primary rounded-xl flex items-center justify-center">
                   <span className="text-white font-bold">AI</span>
@@ -152,7 +184,7 @@ export const HeroSection = () => {
               </div>
             </Card>
 
-            <Card className="p-6 shadow-float bg-card/80 backdrop-blur-sm">
+            <Card className="p-6 shadow-float bg-card/80 backdrop-blur-sm cursor-pointer" onClick={() => handleFeatureClick("Peer Learning Network")}>
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-gradient-success rounded-xl flex items-center justify-center">
                   <Users className="h-6 w-6 text-white" />
@@ -166,7 +198,7 @@ export const HeroSection = () => {
               </div>
             </Card>
 
-            <Card className="p-6 shadow-float bg-card/80 backdrop-blur-sm">
+            <Card className="p-6 shadow-float bg-card/80 backdrop-blur-sm cursor-pointer" onClick={() => handleFeatureClick("Offline First Design")}>
               <div className="flex items-start gap-4">
                 <div className="w-12 h-12 bg-gradient-secondary rounded-xl flex items-center justify-center">
                   <Globe className="h-6 w-6 text-white" />

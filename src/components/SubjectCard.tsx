@@ -6,7 +6,6 @@ import { useToast } from "@/hooks/use-toast";
 
 interface SubjectCardProps {
   title: string;
-  titleHindi: string;
   description: string;
   progress: number;
   icon: string;
@@ -18,7 +17,6 @@ interface SubjectCardProps {
 
 export const SubjectCard = ({
   title,
-  titleHindi,
   description,
   progress,
   icon,
@@ -37,9 +35,38 @@ export const SubjectCard = ({
   };
 
   const handleReview = () => {
+    const reviews = {
+      Mathematics: {
+        rating: 4.8,
+        reviews: [
+          { student: "Priya S.", comment: "Amazing interactive lessons! Math became so much clearer.", rating: 5 },
+          { student: "Rahul K.", comment: "Step-by-step explanations helped me understand complex problems.", rating: 5 },
+          { student: "Ananya M.", comment: "Great practice exercises and immediate feedback.", rating: 4 }
+        ]
+      },
+      Science: {
+        rating: 4.9,
+        reviews: [
+          { student: "Arjun P.", comment: "Virtual experiments are incredible! Love the interactive approach.", rating: 5 },
+          { student: "Shreya L.", comment: "Complex concepts explained in simple terms.", rating: 5 },
+          { student: "Vikram R.", comment: "Great visual demonstrations and real-world examples.", rating: 4 }
+        ]
+      },
+      English: {
+        rating: 4.7,
+        reviews: [
+          { student: "Kavya N.", comment: "Voice practice feature helped improve my pronunciation significantly.", rating: 5 },
+          { student: "Rohan T.", comment: "Interactive reading exercises made learning enjoyable.", rating: 4 },
+          { student: "Meera J.", comment: "Grammar lessons are well-structured and easy to follow.", rating: 5 }
+        ]
+      }
+    };
+
+    const subjectReviews = reviews[title as keyof typeof reviews] || { rating: 4.8, reviews: [] };
+    
     toast({
-      title: `🔍 Review ${title}`,
-      description: `Review completed lessons in ${title}. Access your notes, practice questions, and key concepts from the ${completedLessons} lessons you've already mastered.`,
+      title: `⭐ ${title} Reviews (${subjectReviews.rating}/5)`,
+      description: `${subjectReviews.reviews[0]?.comment || "Excellent learning experience!"} - ${subjectReviews.reviews[0]?.student || "Student"}. View all ${subjectReviews.reviews.length} reviews and student feedback.`,
     });
   };
 
@@ -62,7 +89,6 @@ export const SubjectCard = ({
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-2">
             <h3 className="text-lg font-semibold text-foreground">{title}</h3>
-            <span className="text-sm text-muted-foreground">• {titleHindi}</span>
           </div>
           
           <p className="text-muted-foreground text-sm mb-4 line-clamp-2">

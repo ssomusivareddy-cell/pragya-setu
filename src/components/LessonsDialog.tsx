@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Progress } from "@/components/ui/progress";
 import { PlayCircle, Clock, CheckCircle, Lock, BookOpen } from "lucide-react";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 
 interface LessonsDialogProps {
@@ -17,10 +18,21 @@ interface LessonsDialogProps {
   onOpenChange: (open: boolean) => void;
 }
 
+interface Lesson {
+  id: number;
+  title: string;
+  description: string;
+  duration: string;
+  completed: boolean;
+  progress: number;
+  topics: string[];
+  locked?: boolean;
+}
+
 export const LessonsDialog = ({ open, onOpenChange }: LessonsDialogProps) => {
   const { toast } = useToast();
 
-  const lessons = [
+  const mathLessons: Lesson[] = [
     {
       id: 1,
       title: "Introduction to Numbers",
@@ -70,7 +82,86 @@ export const LessonsDialog = ({ open, onOpenChange }: LessonsDialogProps) => {
     }
   ];
 
-  const handleStartLesson = (lesson: any) => {
+  const scienceLessons: Lesson[] = [
+    {
+      id: 1,
+      title: "States of Matter",
+      description: "Explore solids, liquids, and gases through interactive experiments",
+      duration: "20 min",
+      completed: true,
+      progress: 100,
+      topics: ["Solid State", "Liquid State", "Gas State", "Changes of State"]
+    },
+    {
+      id: 2,
+      title: "Force and Motion",
+      description: "Understanding how objects move and what makes them stop",
+      duration: "25 min",
+      completed: false,
+      progress: 40,
+      topics: ["Types of Forces", "Motion", "Friction", "Gravity"]
+    },
+    {
+      id: 3,
+      title: "Human Body Systems",
+      description: "Learn about respiratory, circulatory, and digestive systems",
+      duration: "30 min",
+      completed: false,
+      progress: 0,
+      topics: ["Respiratory System", "Circulation", "Digestion", "Nervous System"]
+    },
+    {
+      id: 4,
+      title: "Plant Life Cycle",
+      description: "Discover how plants grow, reproduce, and survive",
+      duration: "18 min",
+      completed: false,
+      progress: 0,
+      topics: ["Seeds", "Growth", "Photosynthesis", "Reproduction"],
+      locked: false
+    }
+  ];
+
+  const englishLessons: Lesson[] = [
+    {
+      id: 1,
+      title: "Grammar Basics",
+      description: "Master the fundamentals of English grammar and sentence structure",
+      duration: "18 min",
+      completed: true,
+      progress: 100,
+      topics: ["Nouns", "Verbs", "Adjectives", "Sentence Structure"]
+    },
+    {
+      id: 2,
+      title: "Reading Comprehension",
+      description: "Improve your reading skills and understanding of texts",
+      duration: "22 min",
+      completed: false,
+      progress: 75,
+      topics: ["Reading Strategies", "Context Clues", "Main Ideas", "Details"]
+    },
+    {
+      id: 3,
+      title: "Vocabulary Building",
+      description: "Expand your English vocabulary with interactive exercises",
+      duration: "15 min",
+      completed: false,
+      progress: 30,
+      topics: ["Word Meanings", "Synonyms", "Antonyms", "Usage"]
+    },
+    {
+      id: 4,
+      title: "Writing Skills",
+      description: "Learn to write clear and effective sentences and paragraphs",
+      duration: "25 min",
+      completed: false,
+      progress: 0,
+      topics: ["Sentence Writing", "Paragraphs", "Essays", "Creative Writing"]
+    }
+  ];
+
+  const handleStartLesson = (lesson: Lesson) => {
     if (lesson.locked) {
       toast({
         title: "🔒 Lesson Locked",
@@ -85,7 +176,7 @@ export const LessonsDialog = ({ open, onOpenChange }: LessonsDialogProps) => {
     });
   };
 
-  const handleContinueLesson = (lesson: any) => {
+  const handleContinueLesson = (lesson: Lesson) => {
     toast({
       title: `⏯️ Continue: ${lesson.title}`,
       description: `Resume from where you left off. You're ${lesson.progress}% complete with this lesson.`,
@@ -105,95 +196,31 @@ export const LessonsDialog = ({ open, onOpenChange }: LessonsDialogProps) => {
           </DialogDescription>
         </DialogHeader>
         
-        <div className="space-y-4 mt-6">
-          {lessons.map((lesson, index) => (
-            <Card key={lesson.id} className={`p-6 transition-smooth ${lesson.locked ? 'opacity-60' : 'hover:shadow-card'}`}>
-              <div className="flex items-start gap-4">
-                <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
-                  lesson.completed ? 'bg-gradient-success' : 
-                  lesson.progress > 0 ? 'bg-gradient-primary' :
-                  lesson.locked ? 'bg-muted' : 'bg-gradient-secondary'
-                }`}>
-                  {lesson.completed ? (
-                    <CheckCircle className="h-6 w-6 text-white" />
-                  ) : lesson.locked ? (
-                    <Lock className="h-6 w-6 text-muted-foreground" />
-                  ) : (
-                    <span className="text-white font-bold">{lesson.id}</span>
-                  )}
-                </div>
-
-                <div className="flex-1">
-                  <div className="flex items-start justify-between mb-2">
-                    <div>
-                      <h3 className="text-lg font-semibold text-foreground mb-1">
-                        {lesson.title}
-                      </h3>
-                      <p className="text-sm text-muted-foreground mb-3">
-                        {lesson.description}
-                      </p>
-                    </div>
-                    <div className="flex items-center gap-2 ml-4">
-                      <Clock className="h-4 w-4 text-muted-foreground" />
-                      <span className="text-sm text-muted-foreground">{lesson.duration}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 mb-3">
-                    {lesson.topics.map((topic, topicIndex) => (
-                      <Badge key={topicIndex} variant="secondary" className="text-xs">
-                        {topic}
-                      </Badge>
-                    ))}
-                  </div>
-
-                  {lesson.progress > 0 && !lesson.completed && (
-                    <div className="space-y-2 mb-4">
-                      <div className="flex items-center justify-between text-sm">
-                        <span className="text-muted-foreground">Progress</span>
-                        <span className="font-medium">{lesson.progress}%</span>
-                      </div>
-                      <Progress value={lesson.progress} className="h-2" />
-                    </div>
-                  )}
-
-                  <div className="flex gap-2">
-                    {lesson.completed ? (
-                      <Button variant="outline" size="sm" onClick={() => handleStartLesson(lesson)}>
-                        <PlayCircle className="h-4 w-4" />
-                        Review Lesson
-                      </Button>
-                    ) : lesson.progress > 0 ? (
-                      <Button variant="learning" size="sm" onClick={() => handleContinueLesson(lesson)}>
-                        <PlayCircle className="h-4 w-4" />
-                        Continue ({lesson.progress}%)
-                      </Button>
-                    ) : (
-                      <Button 
-                        variant={lesson.locked ? "outline" : "learning"} 
-                        size="sm" 
-                        onClick={() => handleStartLesson(lesson)}
-                        disabled={lesson.locked}
-                      >
-                        {lesson.locked ? (
-                          <>
-                            <Lock className="h-4 w-4" />
-                            Locked
-                          </>
-                        ) : (
-                          <>
-                            <PlayCircle className="h-4 w-4" />
-                            Start Lesson
-                          </>
-                        )}
-                      </Button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
+        <Tabs defaultValue="math" className="w-full">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="math">Mathematics</TabsTrigger>
+            <TabsTrigger value="science">Science</TabsTrigger>
+            <TabsTrigger value="english">English</TabsTrigger>
+          </TabsList>
+          
+          <TabsContent value="math" className="space-y-4 mt-6">
+            {mathLessons.map((lesson) => (
+              <LessonCard key={lesson.id} lesson={lesson} onStart={handleStartLesson} onContinue={handleContinueLesson} />
+            ))}
+          </TabsContent>
+          
+          <TabsContent value="science" className="space-y-4 mt-6">
+            {scienceLessons.map((lesson) => (
+              <LessonCard key={lesson.id} lesson={lesson} onStart={handleStartLesson} onContinue={handleContinueLesson} />
+            ))}
+          </TabsContent>
+          
+          <TabsContent value="english" className="space-y-4 mt-6">
+            {englishLessons.map((lesson) => (
+              <LessonCard key={lesson.id} lesson={lesson} onStart={handleStartLesson} onContinue={handleContinueLesson} />
+            ))}
+          </TabsContent>
+        </Tabs>
 
         <div className="mt-6 p-4 bg-primary/10 rounded-lg border border-primary/20">
           <p className="text-sm text-center text-foreground">
@@ -205,3 +232,97 @@ export const LessonsDialog = ({ open, onOpenChange }: LessonsDialogProps) => {
     </Dialog>
   );
 };
+
+interface LessonCardProps {
+  lesson: Lesson;
+  onStart: (lesson: Lesson) => void;
+  onContinue: (lesson: Lesson) => void;
+}
+
+const LessonCard = ({ lesson, onStart, onContinue }: LessonCardProps) => (
+  <Card className={`p-6 transition-smooth ${lesson.locked ? 'opacity-60' : 'hover:shadow-card'}`}>
+    <div className="flex items-start gap-4">
+      <div className={`w-12 h-12 rounded-full flex items-center justify-center ${
+        lesson.completed ? 'bg-gradient-success' : 
+        lesson.progress > 0 ? 'bg-gradient-primary' :
+        lesson.locked ? 'bg-muted' : 'bg-gradient-secondary'
+      }`}>
+        {lesson.completed ? (
+          <CheckCircle className="h-6 w-6 text-white" />
+        ) : lesson.locked ? (
+          <Lock className="h-6 w-6 text-muted-foreground" />
+        ) : (
+          <span className="text-white font-bold">{lesson.id}</span>
+        )}
+      </div>
+
+      <div className="flex-1">
+        <div className="flex items-start justify-between mb-2">
+          <div>
+            <h3 className="text-lg font-semibold text-foreground mb-1">
+              {lesson.title}
+            </h3>
+            <p className="text-sm text-muted-foreground mb-3">
+              {lesson.description}
+            </p>
+          </div>
+          <div className="flex items-center gap-2 ml-4">
+            <Clock className="h-4 w-4 text-muted-foreground" />
+            <span className="text-sm text-muted-foreground">{lesson.duration}</span>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap gap-2 mb-3">
+          {lesson.topics.map((topic, topicIndex) => (
+            <Badge key={topicIndex} variant="secondary" className="text-xs">
+              {topic}
+            </Badge>
+          ))}
+        </div>
+
+        {lesson.progress > 0 && !lesson.completed && (
+          <div className="space-y-2 mb-4">
+            <div className="flex items-center justify-between text-sm">
+              <span className="text-muted-foreground">Progress</span>
+              <span className="font-medium">{lesson.progress}%</span>
+            </div>
+            <Progress value={lesson.progress} className="h-2" />
+          </div>
+        )}
+
+        <div className="flex gap-2">
+          {lesson.completed ? (
+            <Button variant="outline" size="sm" onClick={() => onStart(lesson)}>
+              <PlayCircle className="h-4 w-4" />
+              Review Lesson
+            </Button>
+          ) : lesson.progress > 0 ? (
+            <Button variant="learning" size="sm" onClick={() => onContinue(lesson)}>
+              <PlayCircle className="h-4 w-4" />
+              Continue ({lesson.progress}%)
+            </Button>
+          ) : (
+            <Button 
+              variant={lesson.locked ? "outline" : "learning"} 
+              size="sm" 
+              onClick={() => onStart(lesson)}
+              disabled={lesson.locked}
+            >
+              {lesson.locked ? (
+                <>
+                  <Lock className="h-4 w-4" />
+                  Locked
+                </>
+              ) : (
+                <>
+                  <PlayCircle className="h-4 w-4" />
+                  Start Lesson
+                </>
+              )}
+            </Button>
+          )}
+        </div>
+      </div>
+    </div>
+  </Card>
+);

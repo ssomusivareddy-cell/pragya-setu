@@ -35,7 +35,7 @@ export const ContactInfo = () => {
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           Our education support team is dedicated to helping students, parents, and teachers 
-          make the most of their learning journey. Get assistance in Hindi, English, and regional languages.
+          make the most of their learning journey. Get assistance in English and regional languages.
         </p>
       </div>
 
@@ -60,7 +60,7 @@ export const ContactInfo = () => {
                 </div>
                 <div className="flex items-center gap-2 justify-center">
                   <Users className="h-4 w-4" />
-                  <span>Hindi, English, Regional</span>
+                  <span>English, Regional Languages</span>
                 </div>
               </div>
             </div>
@@ -147,9 +147,9 @@ export const ContactInfo = () => {
                 Office Address
               </h4>
               <p className="text-sm text-muted-foreground">
-                Education AI Learning Solutions<br />
-                123, Technology Park, Sector 18<br />
-                Gurugram, Haryana 122015<br />
+                Educational AI Learning Solutions<br />
+                SVCET Campus<br />
+                Chittor, Andhra Pradesh<br />
                 India
               </p>
             </div>
