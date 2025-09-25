@@ -3,21 +3,46 @@ import { Card } from "@/components/ui/card";
 import { PlayCircle, Users, Globe, Zap } from "lucide-react";
 import heroImage from "@/assets/hero-learning.jpg";
 import { useToast } from "@/hooks/use-toast";
+import { SubjectSelectionDialog } from "./SubjectSelectionDialog";
+import { LessonsDialog } from "./LessonsDialog";
+import { QuizDialog } from "./QuizDialog";
+import { useState } from "react";
 
 export const HeroSection = () => {
   const { toast } = useToast();
+  const [subjectDialogOpen, setSubjectDialogOpen] = useState(false);
+  const [lessonsDialogOpen, setLessonsDialogOpen] = useState(false);
+  const [quizDialogOpen, setQuizDialogOpen] = useState(false);
 
   const handleStartLearning = () => {
-    toast({
-      title: "🎯 Start Learning",
-      description: "Welcome to your personalized learning journey! Choose from Math, Science, or English to begin with adaptive content that matches your pace and learning style.",
-    });
+    setSubjectDialogOpen(true);
   };
 
   const handleJoinStudyGroup = () => {
     toast({
       title: "👥 Join Study Group",
       description: "Connect with classmates for collaborative learning! Share notes, discuss topics, and learn together even when offline. Groups are organized by subject and grade level.",
+    });
+  };
+
+  const handleTrackProgress = () => {
+    toast({
+      title: "📊 Track Progress",
+      description: "View your learning analytics! See completed lessons, time spent studying, skill improvements, and personalized recommendations for your learning path.",
+    });
+  };
+
+  const handleGetHelp = () => {
+    toast({
+      title: "🆘 Get Help",
+      description: "Our support team is ready to help! Contact us via phone (+91-9876543210), WhatsApp, or email for learning assistance, technical support, or parent guidance.",
+    });
+  };
+
+  const handleDownloadContent = () => {
+    toast({
+      title: "📱 Download Content",
+      description: "Download lessons for offline study! Access video lessons, practice exercises, and study materials even without internet connection. Perfect for remote learning.",
     });
   };
 
@@ -71,19 +96,19 @@ export const HeroSection = () => {
 
             {/* Additional Learning Options */}
             <div className="flex flex-wrap gap-3 pt-2">
-              <Button variant="outline" className="text-sm">
+              <Button variant="outline" className="text-sm" onClick={() => setLessonsDialogOpen(true)}>
                 View Lessons
               </Button>
-              <Button variant="outline" className="text-sm">
+              <Button variant="outline" className="text-sm" onClick={() => setQuizDialogOpen(true)}>
                 Take Quiz
               </Button>
-              <Button variant="outline" className="text-sm">
+              <Button variant="outline" className="text-sm" onClick={handleTrackProgress}>
                 Track Progress
               </Button>
-              <Button variant="outline" className="text-sm">
+              <Button variant="outline" className="text-sm" onClick={handleGetHelp}>
                 Get Help
               </Button>
-              <Button variant="outline" className="text-sm">
+              <Button variant="outline" className="text-sm" onClick={handleDownloadContent}>
                 Download Content
               </Button>
             </div>
@@ -157,6 +182,20 @@ export const HeroSection = () => {
           </div>
         </div>
       </div>
+
+      {/* Dialogs */}
+      <SubjectSelectionDialog 
+        open={subjectDialogOpen} 
+        onOpenChange={setSubjectDialogOpen} 
+      />
+      <LessonsDialog 
+        open={lessonsDialogOpen} 
+        onOpenChange={setLessonsDialogOpen} 
+      />
+      <QuizDialog 
+        open={quizDialogOpen} 
+        onOpenChange={setQuizDialogOpen} 
+      />
     </section>
   );
 };
