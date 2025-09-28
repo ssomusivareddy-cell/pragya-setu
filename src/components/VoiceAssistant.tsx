@@ -3,9 +3,11 @@ import { Card } from "@/components/ui/card";
 import { Mic, MicOff, Volume2, MessageCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const VoiceAssistant = () => {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [isListening, setIsListening] = useState(false);
   const [isActive, setIsActive] = useState(false);
 
@@ -84,10 +86,10 @@ export const VoiceAssistant = () => {
 
         <div>
           <h3 className="text-xl font-bold text-foreground mb-2">
-            AI Voice Assistant
+            {t('voice.title')}
           </h3>
           <p className="text-sm text-muted-foreground mb-4">
-            Your personal learning companion with voice interaction, explanation, and multilingual support
+            {t('voice.subtitle')}
           </p>
         </div>
 
@@ -98,7 +100,7 @@ export const VoiceAssistant = () => {
             onClick={handleVoiceAssistant}
           >
             <MessageCircle className="h-4 w-4" />
-            {isActive ? "Deactivate Assistant" : "Activate Voice Assistant"}
+            {isActive ? "Deactivate Assistant" : t('voice.activate')}
           </Button>
 
           <div className="grid grid-cols-3 gap-2">

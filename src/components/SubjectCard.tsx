@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { Clock, Star, PlayCircle } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface SubjectCardProps {
   title: string;
@@ -26,6 +27,7 @@ export const SubjectCard = ({
   difficulty
 }: SubjectCardProps) => {
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const handleContinueLearning = () => {
     toast({
@@ -122,7 +124,7 @@ export const SubjectCard = ({
                 Continue Learning
               </Button>
               <Button variant="outline" size="sm" onClick={handleReview}>
-                Review
+                {t('subjects.review')}
               </Button>
             </div>
           </div>

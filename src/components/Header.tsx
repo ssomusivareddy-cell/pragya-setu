@@ -2,27 +2,34 @@ import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Bell, Menu, User, Globe } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Bell, Menu, User, Globe, Languages } from "lucide-react";
 import { useState } from "react";
 import { toast } from "@/hooks/use-toast";
+import { useLanguage, Language } from "@/contexts/LanguageContext";
 
 export const Header = () => {
   const [profileOpen, setProfileOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
 
   const handleNotificationClick = () => {
     // First notification
     toast({
-      title: "🎉 Welcome Back!",
-      description: "You have 3 new lessons available in Mathematics. Continue your learning journey!",
+      title: t('notification.welcome'),
+      description: t('notification.welcomeDesc'),
     });
     
     // Second notification with a slight delay
     setTimeout(() => {
       toast({
-        title: "📚 Study Group Invitation",
-        description: "Join the Physics study group for tomorrow's discussion on Newton's Laws. 5 members waiting!",
+        title: t('notification.studyGroup'),
+        description: t('notification.studyGroupDesc'),
       });
     }, 1000);
+  };
+
+  const handleLanguageChange = (newLanguage: Language) => {
+    setLanguage(newLanguage);
   };
 
   return (
@@ -37,16 +44,23 @@ export const Header = () => {
               <span className="text-white font-bold text-sm">E</span>
             </div>
             <h1 className="text-xl font-bold text-foreground">
-              Education <span className="text-primary">AI</span>
+              {t('header.title')}
             </h1>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <Button variant="warm" size="sm" className="hidden sm:flex">
-            <Globe className="h-4 w-4" />
-            English
-          </Button>
+          <Select value={language} onValueChange={handleLanguageChange}>
+            <SelectTrigger className="w-32 h-8">
+              <Languages className="h-4 w-4 mr-2" />
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="en">English</SelectItem>
+              <SelectItem value="te">తెలుగు</SelectItem>
+              <SelectItem value="hi">हिंदी</SelectItem>
+            </SelectContent>
+          </Select>
           <Button variant="ghost" size="icon" className="relative" onClick={handleNotificationClick}>
             <Bell className="h-5 w-5" />
             <Badge className="absolute -top-1 -right-1 h-5 w-5 rounded-full p-0 flex items-center justify-center text-xs">
@@ -70,28 +84,28 @@ export const Header = () => {
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <h2 className="text-xl font-bold">S Somusivareddy</h2>
-                    <p className="text-sm text-muted-foreground">Student</p>
+                    <h2 className="text-xl font-bold">{t('profile.name')}</h2>
+                    <p className="text-sm text-muted-foreground">{t('profile.role')}</p>
                   </div>
                 </DialogTitle>
               </DialogHeader>
               
               <div className="space-y-4 mt-4">
                 <div className="flex justify-between items-center p-3 rounded-lg bg-muted/50">
-                  <span className="text-sm font-medium">Subjects Enrolled</span>
+                  <span className="text-sm font-medium">{t('profile.enrolled')}</span>
                   <Badge variant="secondary">3</Badge>
                 </div>
                 <div className="flex justify-between items-center p-3 rounded-lg bg-muted/50">
-                  <span className="text-sm font-medium">Completed Lessons</span>
+                  <span className="text-sm font-medium">{t('profile.completed')}</span>
                   <Badge variant="secondary">47</Badge>
                 </div>
                 <div className="flex justify-between items-center p-3 rounded-lg bg-muted/50">
-                  <span className="text-sm font-medium">Study Groups</span>
+                  <span className="text-sm font-medium">{t('profile.groups')}</span>
                   <Badge variant="secondary">2</Badge>
                 </div>
                 <div className="flex justify-between items-center p-3 rounded-lg bg-muted/50">
-                  <span className="text-sm font-medium">Learning Streak</span>
-                  <Badge className="bg-primary">12 days 🔥</Badge>
+                  <span className="text-sm font-medium">{t('profile.streak')}</span>
+                  <Badge className="bg-primary">12 {t('profile.days')} 🔥</Badge>
                 </div>
               </div>
             </DialogContent>

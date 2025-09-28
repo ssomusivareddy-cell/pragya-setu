@@ -2,9 +2,11 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Phone, Mail, MapPin, Clock, Users, HeadphonesIcon } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const ContactInfo = () => {
   const { toast } = useToast();
+  const { t } = useLanguage();
 
   const handleCall = () => {
     toast({
@@ -31,7 +33,7 @@ export const ContactInfo = () => {
     <div className="container mx-auto px-4 py-8">
       <div className="text-center mb-8">
         <h2 className="text-3xl font-bold text-foreground mb-4">
-          Need Help? We're Here for You!
+          {t('contact.title')}
         </h2>
         <p className="text-muted-foreground max-w-2xl mx-auto">
           Our education support team is dedicated to helping students, parents, and teachers 
@@ -52,11 +54,11 @@ export const ContactInfo = () => {
               <div className="space-y-2 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2 justify-center">
                   <Phone className="h-4 w-4" />
-                  <span className="font-medium text-foreground">+91-9876543210</span>
+                  <span className="font-medium text-foreground">{t('contact.phone')}: +91-9876543210</span>
                 </div>
                 <div className="flex items-center gap-2 justify-center">
                   <Clock className="h-4 w-4" />
-                  <span>Mon-Sat: 9 AM - 6 PM</span>
+                  <span>{t('contact.hoursValue')}</span>
                 </div>
                 <div className="flex items-center gap-2 justify-center">
                   <Users className="h-4 w-4" />
@@ -144,13 +146,10 @@ export const ContactInfo = () => {
             <div>
               <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
                 <MapPin className="h-5 w-5 text-primary" />
-                Office Address
+                {t('contact.address')}
               </h4>
               <p className="text-sm text-muted-foreground">
-                Educational AI Learning Solutions<br />
-                SVCET Campus<br />
-                Chittor, Andhra Pradesh<br />
-                India
+                {t('contact.addressValue')}
               </p>
             </div>
             

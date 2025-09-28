@@ -7,9 +7,11 @@ import { SubjectSelectionDialog } from "./SubjectSelectionDialog";
 import { LessonsDialog } from "./LessonsDialog";
 import { QuizDialog } from "./QuizDialog";
 import { useState } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const HeroSection = () => {
   const { toast } = useToast();
+  const { t } = useLanguage();
   const [subjectDialogOpen, setSubjectDialogOpen] = useState(false);
   const [lessonsDialogOpen, setLessonsDialogOpen] = useState(false);
   const [quizDialogOpen, setQuizDialogOpen] = useState(false);
@@ -118,21 +120,21 @@ export const HeroSection = () => {
             <div className="flex flex-col sm:flex-row gap-4">
               <Button variant="hero" size="lg" className="text-lg px-8" onClick={handleStartLearning}>
                 <PlayCircle className="h-5 w-5" />
-                Start Learning
+                {t('hero.startLearning')}
               </Button>
               <Button variant="learning" size="lg" className="text-lg px-8" onClick={handleJoinStudyGroup}>
                 <Users className="h-5 w-5" />
-                Join Study Group
+                {t('subjects.studyGroup')}
               </Button>
             </div>
 
             {/* Additional Learning Options */}
             <div className="flex flex-wrap gap-3 pt-2">
               <Button variant="outline" className="text-sm" onClick={() => setLessonsDialogOpen(true)}>
-                View Lessons
+                {t('subjects.viewLessons')}
               </Button>
               <Button variant="outline" className="text-sm" onClick={() => setQuizDialogOpen(true)}>
-                Take Quiz
+                {t('subjects.takeQuiz')}
               </Button>
               <Button variant="outline" className="text-sm" onClick={handleTrackProgress}>
                 Track Progress
@@ -141,7 +143,7 @@ export const HeroSection = () => {
                 Get Help
               </Button>
               <Button variant="outline" className="text-sm" onClick={handleDownloadContent}>
-                Download Content
+                {t('subjects.downloadContent')}
               </Button>
             </div>
 
@@ -151,13 +153,13 @@ export const HeroSection = () => {
                 <div className="w-8 h-8 bg-gradient-success rounded-lg flex items-center justify-center">
                   <Globe className="h-4 w-4 text-white" />
                 </div>
-                <span className="text-sm font-medium">Works Offline</span>
+                <span className="text-sm font-medium">{t('features.offline')}</span>
               </div>
               <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleFeatureClick("AI Adaptive")}>
                 <div className="w-8 h-8 bg-gradient-secondary rounded-lg flex items-center justify-center">
                   <Zap className="h-4 w-4 text-white" />
                 </div>
-                <span className="text-sm font-medium">AI Adaptive</span>
+                <span className="text-sm font-medium">{t('features.adaptive')}</span>
               </div>
               <div className="flex items-center gap-2 cursor-pointer" onClick={() => handleFeatureClick("Multilingual")}>
                 <div className="w-8 h-8 bg-gradient-primary rounded-lg flex items-center justify-center">
@@ -176,9 +178,9 @@ export const HeroSection = () => {
                   <span className="text-white font-bold">AI</span>
                 </div>
                 <div>
-                  <h3 className="font-semibold mb-2">Adaptive Learning Path</h3>
+                  <h3 className="font-semibold mb-2">{t('features.adaptive')}</h3>
                   <p className="text-sm text-muted-foreground">
-                    AI analyzes your learning style and creates personalized content that adapts to your pace and understanding.
+                    {t('features.adaptiveDesc')}
                   </p>
                 </div>
               </div>
@@ -190,9 +192,9 @@ export const HeroSection = () => {
                   <Users className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold mb-2">Peer Learning Network</h3>
+                  <h3 className="font-semibold mb-2">{t('features.peer')}</h3>
                   <p className="text-sm text-muted-foreground">
-                    Connect with classmates, join study groups, and learn together even in offline environments.
+                    {t('features.peerDesc')}
                   </p>
                 </div>
               </div>
@@ -204,9 +206,9 @@ export const HeroSection = () => {
                   <Globe className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="font-semibold mb-2">Offline First Design</h3>
+                  <h3 className="font-semibold mb-2">{t('features.offline')}</h3>
                   <p className="text-sm text-muted-foreground">
-                    Full functionality works without internet. Sync progress when connection is available.
+                    {t('features.offlineDesc')}
                   </p>
                 </div>
               </div>

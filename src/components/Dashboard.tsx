@@ -7,12 +7,15 @@ import mathIcon from "@/assets/math-icon.jpg";
 import scienceIcon from "@/assets/science-icon.jpg";
 import englishIcon from "@/assets/english-icon.jpg";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const Dashboard = () => {
   const { toast } = useToast();
+  const { t } = useLanguage();
+  
   const subjects = [
     {
-      title: "Mathematics",
+      title: t('subjects.mathematics'),
       description: "Learn algebra, geometry, and problem-solving skills adapted to your pace",
       progress: 68,
       icon: mathIcon,
@@ -22,7 +25,7 @@ export const Dashboard = () => {
       difficulty: "Medium" as const
     },
     {
-      title: "Science",
+      title: t('subjects.science'),
       description: "Explore physics, chemistry, and biology through interactive experiments",
       progress: 45,
       icon: scienceIcon,
@@ -32,7 +35,7 @@ export const Dashboard = () => {
       difficulty: "Easy" as const
     },
     {
-      title: "English",
+      title: t('subjects.english'),
       description: "Improve reading, writing, and communication skills with voice practice",
       progress: 72,
       icon: englishIcon,
@@ -57,7 +60,7 @@ export const Dashboard = () => {
         </div>
         <Button variant="hero" className="hidden md:flex" onClick={() => toast({ title: "🎤 Voice Assistant", description: "AI voice assistant activated! Ask questions, get explanations, practice pronunciation, and learn interactively in your preferred language." })}>
           <Mic className="h-4 w-4" />
-          Voice Assistant
+          {t('voice.title')}
         </Button>
       </div>
 
