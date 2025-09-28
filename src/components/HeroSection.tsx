@@ -69,7 +69,7 @@ export const HeroSection = () => {
       "Offline First Design": "📱 Full functionality without internet! Download lessons, complete exercises, take quizzes, and track progress offline. All data syncs automatically when connection is available. Perfect for areas with limited connectivity.",
       "Works Offline": "🌐 Complete learning experience without internet. Access downloaded videos, interactive exercises, quizzes, and study materials. Progress is saved locally and syncs when you're back online.",
       "AI Adaptive": "⚡ Smart technology that learns with you! Adjusts lesson difficulty, provides personalized hints, identifies knowledge gaps, and creates custom practice problems based on your performance and learning speed.",
-      "Multilingual": "🗣️ Learn in your preferred language! Content available in English, Telugu, Tamil, Malayalam, and other regional languages. Voice assistance and explanations in your native language for better understanding."
+      "Multilingual": "🗣️ Learn in your preferred language! Content available in English, Telugu, and other regional languages. Voice assistance and explanations in your native language for better understanding."
     };
 
     toast({
